@@ -2,9 +2,9 @@
 
 EXE_1 = led_pous
 INCLUDES = -Iinclude							# include folders
-CFLAGS = -g -Wall -Wextra -Os -std=c++14		# Compiler flags
-LDFLAGS = -lm -ansi	-Llib						# Libs for all systems
-DELETE_CMD = rm	-f								# Default remove command
+CFLAGS = -g -Wall -Wextra -Os -std=c++17 				# Compiler flags
+LDFLAGS = -lm -ansi -Llib -lstdc++						# Libs for all systems
+DELETE_CMD = rm	-f							# Default remove command
 empty:=
 
 ifeq ($(TARGET),)
@@ -12,18 +12,22 @@ ifeq ($(TARGET),)
 else ifeq ($(TARGET),rpi1)
 	COMPILER = arm-linux-gnueabihf-g++
 	CFLAGS += -mcpu=arm1176jzf-s -mfloat-abi=hard -mfpu=vfp -mtune=arm1176jzf-s
+	LDFLAGS += -L/usr/arm-linux-gnueabihf/lib
 	EXTENSION = -rpi1
 else ifeq ($(TARGET),rpi2)
 	COMPILER = arm-linux-gnueabihf-g++
 	CFLAGS += -mcpu=cortex-a7 -mfloat-abi=hard -mfpu=neon-vfpv4 -mtune=cortex-a7
+	LDFLAGS += -L/usr/arm-linux-gnueabihf/lib
 	EXTENSION = -rpi2
 else ifeq ($(TARGET),rpi3)
 	COMPILER = arm-linux-gnueabihf-g++
 	CFLAGS += -mcpu=cortex-a53 -mfloat-abi=hard -mfpu=neon-fp-armv8 -mneon-for-64bits -mtune=cortex-a53
+	LDFLAGS += -L/usr/arm-linux-gnueabihf/lib
 	EXTENSION = -rpi3
 else ifeq ($(TARGET),beaglebb)
 	COMPILER = arm-linux-gnueabihf-g++
 	CFLAGS += -mcpu=cortex-a8 -mfloat-abi=hard -mfpu=neon -mtune=cortex-a8
+	LDFLAGS += -L/usr/arm-linux-gnueabihf/lib
 	EXTENSION = -beaglebb
 endif
 
