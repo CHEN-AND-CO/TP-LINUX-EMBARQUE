@@ -1,1 +1,5 @@
 .vscode
+led_pous/led_pous-beaglebb
+led_pous/obj/GPIO.o
+led_pous/obj/led_pous.o
+*.o
