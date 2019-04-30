@@ -1,10 +1,10 @@
 # Makefile by Kévin Le Torc'h
 
-EXE_1 = compteur_mod8
+EXE_1 = $(shell basename $(CURDIR))
 INCLUDES = -Iinclude							# include folders
-CFLAGS = -g -Wall -Wextra -Os -std=c++17 -static-libstdc++		# Compiler flags
-LDFLAGS = -lm -ansi	-Llib						# Libs for all systems
-DELETE_CMD = rm	-f								# Default remove command
+CFLAGS = -g -Wall -Wextra -Os -std=c++17 -static-libstdc++			# Compiler flags
+LDFLAGS = -lm -ansi -Llib 						# Libs for all systems
+DELETE_CMD = rm	-f							# Default remove command
 empty:=
 
 ifeq ($(TARGET),)
