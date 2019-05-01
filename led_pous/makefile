@@ -1,6 +1,6 @@
 # Makefile by Kévin Le Torc'h
 
-EXE_1 = led_pous
+EXE_1 = $(notdir $(CURDIR))
 INCLUDES = -Iinclude							# include folders
 CFLAGS = -g -Wall -Wextra -Os -std=c++17 -static-libstdc++			# Compiler flags
 LDFLAGS = -lm -ansi -Llib 						# Libs for all systems
