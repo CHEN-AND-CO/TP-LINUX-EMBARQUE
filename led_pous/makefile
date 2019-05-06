@@ -1,11 +1,17 @@
-# Makefile by Kévin Le Torc'h
+# Makefile by Kévin Le Torc'h & G. Leroy-Ferrec
 
 EXE_1 = $(notdir $(CURDIR))
 INCLUDES = -Iinclude							# include folders
-CFLAGS = -g -Wall -Wextra -Os -std=c++17 -static-libstdc++			# Compiler flags
-LDFLAGS = -lm -ansi -Llib 						# Libs for all systems
-DELETE_CMD = rm	-f							# Default remove command
+CFLAGS = -g -Wall -Wextra -Os -std=c++17 -static-libstdc++		# Compiler flags
+LDFLAGS = -lm -ansi	-Llib						# Libs for all systems
+DELETE_CMD = rm	-f								# Default remove command
 empty:=
+
+# SSH/SCP credentials
+REMOTE_USER = root
+REMOTE_HOST = 172.17.12.111
+REMOTE_PATH = ~/blink/
+
 
 ifeq ($(TARGET),)
 	COMPILER = g++
@@ -86,3 +92,12 @@ clear:
 
 run: $(EXE_1)$(EXTENSION)
 	./$(EXE_1)$(EXTENSION)
+
+upload: remake
+	scp ./$(EXE_1)$(EXTENSION) $(REMOTE_USER)@$(REMOTE_HOST):$(REMOTE_PATH)
+
+remote-run: upload
+	ssh $(REMOTE_USER)@$(REMOTE_HOST) '$(REMOTE_PATH)$(EXE_1)$(EXTENSION)'
+
+kill:
+	ssh $(REMOTE_USER)@$(REMOTE_HOST) 'killall -s 2 $(EXE_1)$(EXTENSION)'
