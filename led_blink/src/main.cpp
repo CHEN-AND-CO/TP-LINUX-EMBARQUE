@@ -14,7 +14,7 @@ int main(){
     int compteur = 0;
 
 
-    while (compteur++ < 200) {
+    while (compteur++ < 20) {
         aled.permut_LED();
         usleep(500000);
     }
