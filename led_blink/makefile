@@ -1,6 +1,6 @@
 # Makefile by Kévin Le Torc'h & G. Leroy-Ferrec
 
-EXE_1 = led_blink
+EXE_1 = $(notdir $(CURDIR))
 INCLUDES = -Iinclude							# include folders
 CFLAGS = -g -Wall -Wextra -Os -std=c++17 -static-libstdc++		# Compiler flags
 LDFLAGS = -lm -ansi	-Llib						# Libs for all systems
@@ -10,7 +10,7 @@ empty:=
 # SSH/SCP credentials
 REMOTE_USER = root
 REMOTE_HOST = 172.17.12.111
-REMOTE_PATH = ~/$(EXE_1)/
+REMOTE_PATH = ~/blink/
 
 
 ifeq ($(TARGET),)
@@ -95,3 +95,6 @@ run: $(EXE_1)$(EXTENSION)
 
 upload:
 	scp ./$(EXE_1)$(EXTENSION) $(REMOTE_USER)@$(REMOTE_HOST):$(REMOTE_PATH)
+
+remote-run: upload
+	ssh $(REMOTE_USER)@$(REMOTE_HOST) '$(REMOTE_PATH)$(EXE_1)$(EXTENSION)'

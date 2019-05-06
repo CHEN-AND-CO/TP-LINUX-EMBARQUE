@@ -1,8 +1,7 @@
-
 #include <iostream>
 #include <chrono>
 #include <thread>
-#include "GPIO.hpp"
+#include "Led_blink.hpp"
 
 #define usleep(x) std::this_thread::sleep_for(std::chrono::microseconds(x))
 
@@ -10,15 +9,12 @@
 #define GPIO_GREEN 1 * 32 + 28
 #define GPIO_BLUE 3
 
-int main(int argc, char *argv[])
-{
-    GPIO led_red(GPIO_RED, GPIO::OUT);
+int main(){
+    Led_blink aled(GPIO_GREEN);
 
     while (true) {
-        led_red.set(true);
-        usleep(1000*1000);
-        led_red.set(false);
-        usleep(1000 * 1000);
+        aled.permut_LED();
+        usleep(500000);
     }
 
     return 0;
