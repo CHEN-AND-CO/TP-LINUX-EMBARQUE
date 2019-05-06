@@ -93,7 +93,7 @@ clear:
 run: $(EXE_1)$(EXTENSION)
 	./$(EXE_1)$(EXTENSION)
 
-upload:
+upload: remake
 	scp ./$(EXE_1)$(EXTENSION) $(REMOTE_USER)@$(REMOTE_HOST):$(REMOTE_PATH)
 
 remote-run: upload

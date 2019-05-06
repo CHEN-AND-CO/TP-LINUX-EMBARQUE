@@ -11,8 +11,10 @@
 
 int main(){
     Led_blink aled(GPIO_GREEN);
+    int compteur = 0;
 
-    while (true) {
+
+    while (compteur++ < 200) {
         aled.permut_LED();
         usleep(500000);
     }
