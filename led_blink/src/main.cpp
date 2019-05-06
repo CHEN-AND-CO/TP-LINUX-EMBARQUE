@@ -22,7 +22,7 @@ void hInterrupt(int sig) {
 int main(){
     //Setting interrupt handler
     signal(SIGINT, hInterrupt);
-
+    
     Led_blink aled(GPIO_GREEN);
 
     while (trou) {
