@@ -100,4 +100,4 @@ remote-run: upload
 	ssh $(REMOTE_USER)@$(REMOTE_HOST) '$(REMOTE_PATH)$(EXE_1)$(EXTENSION)'
 
 kill:
-	ssh $(REMOTE_USER)@$(REMOTE_HOST) 'killall $(EXE_1)$(EXTENSION)'
+	ssh $(REMOTE_USER)@$(REMOTE_HOST) 'killall -s 2 $(EXE_1)$(EXTENSION)'
