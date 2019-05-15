@@ -16,7 +16,7 @@ GPIO::GPIO(int port, std::string mode): port{port}, export_state{false}, mode{mo
 }
 
 bool GPIO::init(int port){
-    std::ofstream out{ GPIO_PATH "/export", std::ios::out };
+    std::ofstream out{ GPIO_PATH "/export" };
 
     if(out.bad()) return false;
 
@@ -28,7 +28,7 @@ bool GPIO::init(int port){
 
 bool GPIO::setMode(std::string mode){
     if(!mode.compare(GPIO::IN) || !mode.compare(GPIO::OUT)){
-        std::ofstream out{ GPIO_PATH "/gpio" + std::to_string(port) + "/direction", std::ios::out };
+        std::ofstream out{ GPIO_PATH "/gpio" + std::to_string(port) + "/direction" };
         
         if(out.bad()) return false;
 
@@ -50,7 +50,7 @@ bool GPIO::set(bool state){
     }else if(!mode.compare(GPIO::IN)){
         std::cerr << "Error : GPIO Port " << port << " is configured in INPUT mode !" << "\n";
     }else{
-        std::ofstream out{ GPIO_PATH "/gpio" + std::to_string(port) + "/value", std::ios::out };
+        std::ofstream out{ GPIO_PATH "/gpio" + std::to_string(port) + "/value" };
 
         if(!out.bad()){
             out << ((state)?1:0);
@@ -73,7 +73,7 @@ int GPIO::get(){
 
         return -2;
     }else{
-        std::ifstream in{ GPIO_PATH "/gpio" + std::to_string(port) + "/value", std::ios::in };
+        std::ifstream in{ GPIO_PATH "/gpio" + std::to_string(port) + "/value" };
         
         if(!in.bad()) {
             in >> state;
@@ -87,7 +87,8 @@ bool GPIO::close(){
     if(!export_state){
         std::cerr << "Error : GPIO Port " << port << " not initialised !" << "\n";
     }else{
-        std::ofstream out{ GPIO_PATH "/unexport", std::ios::out };
+        set(false);
+        std::ofstream out{ GPIO_PATH "/unexport" };
 
         if(!out.bad()){
             out << port;
