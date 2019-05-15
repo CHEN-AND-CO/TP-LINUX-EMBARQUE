@@ -4,6 +4,7 @@
 #include <mutex>
 #include <csignal>
 #include "Ledr_pwm.hpp"
+#include "GPIO.hpp"
 
 #define usleep(x) std::this_thread::sleep_for(std::chrono::microseconds(x))
 
@@ -24,6 +25,7 @@ int main(){
     
     std::mutex mutex;
     Ledr_pwm lpwm("AIN3");
+    GPIO led_blue(GPIO_BLUE, GPIO::OUT), led_green(GPIO_GREEN, GPIO::OUT);
 
     std::thread led_pwm_red([&lpwm, &mutex](){
         while (true) {
@@ -33,16 +35,33 @@ int main(){
         }
     });
 
-    std::thread led_pwm_bg([&lpwm, &mutex](){
-        while (true) {
-            mutex.lock();
+    std::thread led_pwm_bg([&led_blue, &led_green, &lpwm, &mutex](){
+        float tmp = 0.0;
 
+        while (true) {
+            led_blue.set(0);
+            led_green.set(0);
+
+            mutex.lock();
+            tmp = 1000*(1 - lpwm.getDuty()/lpwm.getPeriod());
+            std::cout << tmp << std::endl;
             mutex.unlock();
+
+            usleep((int)tmp);
+
+            led_blue.set(1);
+            led_green.set(1);
+
+            mutex.lock();
+            tmp = 1000*(lpwm.getDuty()/lpwm.getPeriod());
+            std::cout << tmp << std::endl;
+            mutex.unlock();
+            usleep((int)tmp);          
         }
     });
 
     led_pwm_red.join();
+    led_pwm_bg.join();
     
-
     return 0;
 }

@@ -11,9 +11,11 @@ class Ledr_pwm : public ADC {
     Ledr_pwm(std::string device, int period = 1800, int polarity = 0);
 
     void setPeriod(int period);
+    int getPeriod();
     void setPolarity(int polarity);
     void setRun(bool run);
     void setDuty(int duty);
+    int getDuty();
 
     void mod_PWM(unsigned int duty);
     private:

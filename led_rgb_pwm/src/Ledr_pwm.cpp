@@ -20,6 +20,15 @@ void Ledr_pwm::setPeriod(int period){
     out.flush();
 }
 
+int Ledr_pwm::getPeriod(){
+    std::ifstream in{ PWM_PATH "/period"};
+    int period = 0;
+
+    in >> period;
+    
+    return period;
+}
+
 void Ledr_pwm::setPolarity(int polarity){
     std::ofstream out{ PWM_PATH "/polarity"};
 
@@ -39,6 +48,15 @@ void Ledr_pwm::setDuty(int duty){
 
     out << duty;
     out.flush();
+}
+
+int Ledr_pwm::getDuty(){
+    std::ifstream in{ PWM_PATH "/duty"};
+    int duty = 0;
+
+    in >> duty;
+    
+    return duty;
 }
 
 void Ledr_pwm::mod_PWM(unsigned int duty){
