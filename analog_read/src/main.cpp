@@ -9,7 +9,7 @@
 #define sleep(x) usleep(x*1000)
 
 void hInterrupt(int sig) {
-    std::cout << "SIGINT (Ctrl+C) caught, exiting...\n";
+    std::cout << "\nSIGINT (Ctrl+C) caught, exiting...\n";
 
     exit(sig);
 }
@@ -23,8 +23,8 @@ int main(){
 
     while (true)
     {
-        sleep(100);
-        std::cout << "Analog value : " << analogIn.read() << "\r";
+        sleep(1);
+        std::cout << "Analog value : " << analogIn.read() << "        \r";
     }
 
     
