@@ -1,6 +1,7 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
+#include <mutex>
 #include <csignal>
 #include "Ledr_pwm.hpp"
 
@@ -21,13 +22,17 @@ int main(){
     //Setting interrupt handler
     signal(SIGINT, hInterrupt);
     
+    std::mutex mutex;
     Ledr_pwm lpwm("AIN3");
 
-    while (true) {
-        lpwm.mod_PWM(lpwm.read());
+    std::thread led_pwm_red([&lpwm, &mutex](){
+        while (true) {
+            lpwm.mod_PWM(lpwm.read());
+        }
+    });
 
-        //usleep(500000);
-    }
+    led_pwm_red.join();
+    
 
     return 0;
 }
