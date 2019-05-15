@@ -18,11 +18,13 @@ int ADC::read() const {
     if (!_dev)
     {
         std::cerr << "[CapeADC] Cannot open ADC system file\n\tMake sure Cape devices are correctly initialized beforehand.\n";
+        return -1;
     }
     else
     {
         std::string val;
         _dev >> val;
+        return std::stoi(val);
     }
 
     _dev.close();
