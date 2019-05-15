@@ -27,7 +27,17 @@ int main(){
 
     std::thread led_pwm_red([&lpwm, &mutex](){
         while (true) {
+            mutex.lock();
             lpwm.mod_PWM(lpwm.read());
+            mutex.unlock();
+        }
+    });
+
+    std::thread led_pwm_bg([&lpwm, &mutex](){
+        while (true) {
+            mutex.lock();
+
+            mutex.unlock();
         }
     });
 
