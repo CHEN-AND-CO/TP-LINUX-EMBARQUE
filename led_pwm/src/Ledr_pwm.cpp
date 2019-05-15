@@ -1,6 +1,6 @@
 #include "Ledr_pwm.hpp"
 
-Ledr_pwm::Ledr_pwm(std::string device): ADC(device) {
+Ledr_pwm::Ledr_pwm(std::string device, int period, int polarity): ADC(device) {
     std::ofstream out{ DEVICE_MANAGER_PATH "/slots"};
 
     out << "am33xx_pwm";
@@ -8,6 +8,9 @@ Ledr_pwm::Ledr_pwm(std::string device): ADC(device) {
 
     out << "bone_pwm_P9_14";
     out.flush();
+
+    setPeriod(period);
+    setPolarity(polarity);
 }
 
 void Ledr_pwm::setPeriod(int period){

@@ -8,7 +8,7 @@
 
 class Ledr_pwm : public ADC {
     public:
-    Ledr_pwm(std::string device);
+    Ledr_pwm(std::string device, int period = 1800, int polarity = 0);
 
     void setPeriod(int period);
     void setPolarity(int polarity);

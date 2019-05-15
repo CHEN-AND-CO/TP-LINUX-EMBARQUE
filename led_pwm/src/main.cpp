@@ -26,7 +26,7 @@ int main(){
     while (true) {
         lpwm.mod_PWM(lpwm.read());
 
-        usleep(500000);
+        //usleep(500000);
     }
 
     return 0;
