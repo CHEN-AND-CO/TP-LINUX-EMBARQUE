@@ -43,8 +43,8 @@ int main(){
             led_green.set(0);
 
             mutex.lock();
-            tmp = 1000*(1 - lpwm.getDuty()/lpwm.getPeriod());
-            std::cout << tmp << std::endl;
+            tmp = 1000*(1 - (float)lpwm.getDuty()/lpwm.getPeriod());
+            std::cout <<"LED OFF " << tmp << std::endl;
             mutex.unlock();
 
             usleep((int)tmp);
@@ -53,8 +53,8 @@ int main(){
             led_green.set(1);
 
             mutex.lock();
-            tmp = 1000*(lpwm.getDuty()/lpwm.getPeriod());
-            std::cout << tmp << std::endl;
+            tmp = 1000*((float)lpwm.getDuty()/lpwm.getPeriod());
+            std::cout <<"LED ON " << tmp << std::endl;
             mutex.unlock();
             usleep((int)tmp);          
         }
